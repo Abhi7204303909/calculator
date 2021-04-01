@@ -1,0 +1,21 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto;
+  background-color: white;
+  padding: 10px;
+  margin-top: -9px;
+  height: 73vh;
+}
+.gridItem {
+  background-color: rgb(163, 161, 153);
+  /* border: 1px solid rgba(0, 0, 0, 0.8); */
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
+  font-weight: lighter;
+  color: #282c34;
+  /* width: 100px; */
+}

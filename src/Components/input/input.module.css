@@ -1,0 +1,10 @@
+input {
+  width: 92vw;
+  height: 100px;
+  margin-top: 30px;
+  background-color: #282c34;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 40px;
+  font-weight: lighter;
+}
