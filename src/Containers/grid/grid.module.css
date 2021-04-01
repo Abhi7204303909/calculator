@@ -18,4 +18,11 @@
   font-weight: lighter;
   color: #282c34;
   /* width: 100px; */
+  transition-property: background-color;
+  transition: all 0.3s ease-in-out;
+}
+.gridItem:hover {
+  background-color: gray;
+  box-shadow: 2px 2px 2px gray;
+  cursor: pointer;
 }
