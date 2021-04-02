@@ -12,84 +12,28 @@ class Wrapper extends Component{
     }
  
     foo(val){
-        let arr=this.state.str.split(' ');
-         console.log(arr);
-       
-        if(arr[1]==='+'){
-            let sum=0;
-         
-            sum=Number(arr[0])+Number(arr[2]);
-            for(let i=3;i<arr.length;i++){
-                    if(arr[i]==='+')continue;
-                    
-                    sum+=Number(arr[i]);
-            }
-            if(val==='='){
-                this.setState({str:''+sum});
-            }
-         
-               
-            
-        }
-        if(arr[1]==='-'){
-            let diff=arr[0];
-         
-            diff-=Number(arr[2]);
-            for(let i=3;i<arr.length;i++){
-                    if(arr[i]==='+')continue;
-                    
-                    diff-=Number(arr[i]);
-            }
-            if(val==='='){
-                this.setState({str:''+diff});
-            }
-         
-               
-        }
-        if(arr[1]==='*'){
-            let mul=arr[0];
-         
-            mul*=Number(arr[2]);
-            for(let i=3;i<arr.length;i++){
-                    if(arr[i]==='+')continue;
-                    
-                    mul*=Number(arr[i]);
-            }
-            if(val==='='){
-                this.setState({str:''+mul});
-            }
-         
-        }
-        if(arr[1]==='/'){
-            let div=arr[0];
-         
-            div/=Number(arr[2]);
-            for(let i=3;i<arr.length;i++){
-                    if(arr[i]==='+')continue;
-                    
-                    div/=Number(arr[i]);
-            }
-            if(val==='='){
-                this.setState({str:''+div});
-            }
-         
-        }
-        if(arr[1]==='%'){
-            let per;
-            per=Number(arr[0])/100;
-            if(val==='='){
-                this.setState({str:''+per});
-            }
+      if(this.state.str.includes('+')){
+          let arr=this.state.str.split('+');
+          let sum=arr[0]==='-'?Number(arr[1]):Number(arr[0])
+          let i=arr[0]==='-'?2:1
+          while(i<arr.length){
+            if(arr[i]==='=')break;  
+            sum+=Number(arr[i]);
+          }
+          if(val==='='){
+              this.setState({str:''+sum})
+          }
+      }
+      if(val==='-'){}
+      if(val==='*'){}
+      if(val==='/'){}
+      if(val==='%'){}
 
-        }
-       
     }
-    newFeature(){
-        console.log('newFeature');
-    }
+    
     clickedHandler=(event)=>{
         //  console.log(event);
-        this.newFeature();
+      
         event.preventDefault();
         let val=event.target.textContent;
         let prevStr;
@@ -98,9 +42,10 @@ class Wrapper extends Component{
             return;
         }
         if(val==='C'){
-            let ar=this.state.str.split(' ');
-            ar.pop();
-            this.setState({str:ar.join(' ')});
+           let ar=this.state.str.split('');
+           ar.pop();
+             console.log(ar);
+            this.setState({str:ar.join('')});
             return;
         }
         if(this.state.str!==''){
@@ -108,20 +53,16 @@ class Wrapper extends Component{
             // console.log(prevStr);
         }
         // console.log(prevStr);
-        if(isFinite(parseInt(val))||val==='.' && (prevStr!=='+' || prevStr!=='-' || prevStr!=='=' || prevStr!=='/')){
-            this.setState((prevState)=>{return{str:prevState.str+val}})
-            this.foo(val);
-        }
-        else{
-            this.setState((prevState)=>{return {str:prevState.str+' '+val+' '}})
-            this.foo(val);
-        }
-           
-        
-      
- 
- 
-
+        this.setState((prevState)=>{return {str:prevState.str+val}})
+        this.foo(val);
+        // if(isFinite(parseInt(val))||val==='.' && (prevStr!=='+' || prevStr!=='-' || prevStr!=='=' || prevStr!=='/')){
+        //     this.setState((prevState)=>{return{str:prevState.str+val}})
+        //     this.foo(val);
+        // }
+        // else{
+        //     this.setState((prevState)=>{return {str:prevState.str+val}})
+        //     this.foo(val);
+        // }
 
     }
     render(){
