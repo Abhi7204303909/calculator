@@ -13,7 +13,7 @@ class Wrapper extends Component{
  
     foo(val){
         let arr=this.state.str.split(' ');
-        // console.log(arr);
+         console.log(arr);
        
         if(arr[1]==='+'){
             let sum=0;
@@ -84,8 +84,12 @@ class Wrapper extends Component{
         }
        
     }
+    newFeature(){
+        console.log('newFeature');
+    }
     clickedHandler=(event)=>{
-        // console.log(event);
+        //  console.log(event);
+        this.newFeature();
         event.preventDefault();
         let val=event.target.textContent;
         let prevStr;
@@ -121,7 +125,7 @@ class Wrapper extends Component{
 
     }
     render(){
-//    console.log('inside render',this.state);
+   console.log('inside render',this.state);
         return (
             <Aux>
                 <Input value={this.state.str}/>
