@@ -10,24 +10,69 @@ class Wrapper extends Component{
         res:null,
         
     }
- 
+   
     foo(val){
       if(this.state.str.includes('+')){
           let arr=this.state.str.split('+');
-          let sum=arr[0]==='-'?Number(arr[1]):Number(arr[0])
+          let sum=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0])
           let i=arr[0]==='-'?2:1
           while(i<arr.length){
-            if(arr[i]==='=')break;  
-            sum+=Number(arr[i]);
+             if(arr[i].includes('*'))continue;
+             else{sum+=Number(arr[i]);}
+            i++;
           }
           if(val==='='){
-              this.setState({str:''+sum})
+              this.setState({str:`${sum}`})
           }
       }
-      if(val==='-'){}
-      if(val==='*'){}
-      if(val==='/'){}
-      if(val==='%'){}
+      else if(this.state.str.includes('-') && !this.state.str.includes('*') && 
+      !this.state.str.includes('/') && !this.state.str.includes('%')){
+        let arr=this.state.str.split('-');
+        let diff=arr[0]===''?-1*Number(arr[1]):Number(arr[0]);
+        let i=arr[0]===''?2:1
+        while(i<arr.length){
+           
+          diff-=Number(arr[i]);
+          i++;
+        }
+        if(val==='='){
+            this.setState({str:''+diff})
+        }
+      }
+      else if(this.state.str.includes('*')){
+        let arr=this.state.str.split('*');
+        console.log(arr);
+        let mul=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
+        let i=arr[0]==='-'?2:1
+        while(i<arr.length){
+           
+          mul*=Number(arr[i]);
+          i++;
+        }
+        if(val==='='){
+            this.setState({str:''+mul})
+        }
+      }
+      else if(this.state.str.includes('/')){
+        let arr=this.state.str.split('/');
+        let div=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
+        let i=arr[0]==='-'?2:1
+        while(i<arr.length){
+           
+          div/=Number(arr[i]);
+          i++;
+        }
+        if(val==='='){
+            this.setState({str:''+div})
+        }
+      }
+      if(this.state.str.includes('%')){
+        let arr=this.state.str.split('%');
+        let per=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
+        if(val==='='){
+            this.setState({str:`${per/100}`})
+        }
+      }
 
     }
     
