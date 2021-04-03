@@ -4,78 +4,10 @@ import Input from '../input/input'
 import Grid from '../../Containers/grid/grid'
 class Wrapper extends Component{
     state={
-       
-       
         str:'',
-        res:null,
+        res:0,
         
     }
-   
-    foo(val){
-      if(this.state.str.includes('+')){
-          let arr=this.state.str.split('+');
-          let sum=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0])
-          let i=arr[0]==='-'?2:1
-          while(i<arr.length){
-             if(arr[i].includes('*'))continue;
-             else{sum+=Number(arr[i]);}
-            i++;
-          }
-          if(val==='='){
-              this.setState({str:`${sum}`})
-          }
-      }
-      else if(this.state.str.includes('-') && !this.state.str.includes('*') && 
-      !this.state.str.includes('/') && !this.state.str.includes('%')){
-        let arr=this.state.str.split('-');
-        let diff=arr[0]===''?-1*Number(arr[1]):Number(arr[0]);
-        let i=arr[0]===''?2:1
-        while(i<arr.length){
-           
-          diff-=Number(arr[i]);
-          i++;
-        }
-        if(val==='='){
-            this.setState({str:''+diff})
-        }
-      }
-      else if(this.state.str.includes('*')){
-        let arr=this.state.str.split('*');
-        console.log(arr);
-        let mul=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
-        let i=arr[0]==='-'?2:1
-        while(i<arr.length){
-           
-          mul*=Number(arr[i]);
-          i++;
-        }
-        if(val==='='){
-            this.setState({str:''+mul})
-        }
-      }
-      else if(this.state.str.includes('/')){
-        let arr=this.state.str.split('/');
-        let div=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
-        let i=arr[0]==='-'?2:1
-        while(i<arr.length){
-           
-          div/=Number(arr[i]);
-          i++;
-        }
-        if(val==='='){
-            this.setState({str:''+div})
-        }
-      }
-      if(this.state.str.includes('%')){
-        let arr=this.state.str.split('%');
-        let per=arr[0]==='-'?-1*Number(arr[1]):Number(arr[0]);
-        if(val==='='){
-            this.setState({str:`${per/100}`})
-        }
-      }
-
-    }
-    
     clickedHandler=(event)=>{
         //  console.log(event);
       
@@ -89,7 +21,7 @@ class Wrapper extends Component{
         if(val==='C'){
            let ar=this.state.str.split('');
            ar.pop();
-             console.log(ar);
+            //  console.log(ar);
             this.setState({str:ar.join('')});
             return;
         }
@@ -99,22 +31,20 @@ class Wrapper extends Component{
         }
         // console.log(prevStr);
         this.setState((prevState)=>{return {str:prevState.str+val}})
-        this.foo(val);
-        // if(isFinite(parseInt(val))||val==='.' && (prevStr!=='+' || prevStr!=='-' || prevStr!=='=' || prevStr!=='/')){
-        //     this.setState((prevState)=>{return{str:prevState.str+val}})
-        //     this.foo(val);
-        // }
-        // else{
-        //     this.setState((prevState)=>{return {str:prevState.str+val}})
-        //     this.foo(val);
-        // }
-
+        // this.foo(val);
+        if(val==='%'){
+          this.setState({str:`${parseInt(this.state.str)/100}`})
+        }
+        if(val==='='){
+          this.setState({str:`${eval(this.state.str)}`})
+        }
+      
     }
     render(){
-   console.log('inside render',this.state);
+  //  console.log('inside render',this.state);
         return (
             <Aux>
-                <Input value={this.state.str}/>
+                <Input value={this.state.str} temp={this.state.res}/>
                 <Grid clicked={e=>{this.clickedHandler(e)}}/>
             </Aux>
         )
